@@ -1,0 +1,86 @@
+<html>
+  <head>{{title}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to {{title}}</h1>
+      <h4>Based on {{bookTitle}}</h4>
+    </header>
+    <div class="mainBody">
+      <div class="row">
+        <div class="col">
+          <div class="categoryListDisplay">
+            <br/>
+            <h3>The following are the current Categories, Please select one to view the files </h3>
+            <br/>
+             <input type="text" [formControl]="searchControl" placeholder="Type here to search" name="searchQueryInput">
+            <br>
+            <br>
+            <ul>
+              <div *ngFor="let category of filteredCategoryList">
+                <button type="button" class="categoryButtons" (click)="loadCatalogForCategory(category['id'])"><li>{{category["name"]}}</li></button>
+                <br>
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="catalogListDisplay">
+            <br/>
+            <h3>The following are the references for the selected Category </h3>
+            <br/>
+            <div *ngIf="selectedCategory != -1">
+              <table mat-table [dataSource]="catalogList" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Name</th>
+                  <td mat-cell *matCellDef="let element">{{element["name"]}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
+                  <td mat-cell *matCellDef="let element">{{element["documentType"]}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="link">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Link</th>
+                  <td mat-cell *matCellDef="let element">
+                    <a [href]="element['documentName']" target="_blank">Click Here</a>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="author">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Author</th>
+                  <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element['author']!=null; else elseBlock">{{element["author"]}}</div>
+                    <ng-template #elseBlock>Not Available</ng-template>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="citation">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Citation</th>
+                  <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element['citation']!=null; else elseBlock">{{element["citation"]}}</div>
+                      <ng-template #elseBlock>Not Available</ng-template>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="classification">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Classification</th>
+                  <td mat-cell *matCellDef="let element">{{element["classification"]}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <h6>Intellectual Property of Lance S Davidson. Created by Vijayadithya Doddi</h6>
+    </footer>
+  </body>
+</html>
