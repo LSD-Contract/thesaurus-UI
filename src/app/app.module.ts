@@ -6,10 +6,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { UploadComponentComponent } from './upload-component/upload-component.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UploadComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -17,7 +20,8 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     MatTableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

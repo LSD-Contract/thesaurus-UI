@@ -6,8 +6,15 @@
     <header>
       <h1>Welcome to {{title}}</h1>
       <h4>Based on {{bookTitle}}</h4>
+      <div *ngIf="!uploadPageOpenBool">
+        <a id="uploadLink" routerLink="/upload" (click)="uploadPage()">Upload</a>
+      </div>
+      <div *ngIf="uploadPageOpenBool">
+        <a id="uploadLink" routerLink="/" (click)="uploadPage()">Go Back</a>
+      </div>
     </header>
-    <div class="mainBody">
+    <router-outlet></router-outlet>
+    <div class="mainBody" *ngIf="!uploadPageOpenBool">
       <div class="row">
         <div class="col">
           <div class="categoryListDisplay">
@@ -30,29 +37,42 @@
             <br/>
             <h3>The following are the references for the selected Category </h3>
             <br/>
-            <div *ngIf="selectedCategory != -1">
-              <table mat-table [dataSource]="catalogList" class="mat-elevation-z8">
+            <button (click)="showFilter=!showFilter">Filter by Classification</button>
+            <br/>
+            <br/>
+            <div *ngIf="showFilter">
+              <div *ngFor="let classification of classificationList">
+                <input class="form-check-input" type="checkbox" value="classification" id="{{classification['name']}}"
+                (click)="filterClassification(classification)">
+                <label class="form-check-label" for="{{classification['name']}}">{{classification['name']}}</label>
+              </div>
+            </div>
+            <br/>
+            <br/>
+            <div *ngIf="selectedCategory != -1 && filteredCatalogList.length != 0">
+              <table mat-table [dataSource]="filteredCatalogList" class="mat-elevation-z8">
 
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef class="text-center">Name</th>
-                  <td mat-cell *matCellDef="let element">{{element["name"]}}</td>
+                  <td mat-cell *matCellDef="let element" class="text-center">{{element["name"]}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="type">
                   <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
-                  <td mat-cell *matCellDef="let element">{{element["documentType"]}}</td>
+                  <td mat-cell *matCellDef="let element" class="text-center">{{element["documentType"]}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="link">
                   <th mat-header-cell *matHeaderCellDef class="text-center">Link</th>
-                  <td mat-cell *matCellDef="let element">
-                    <a [href]="element['documentName']" target="_blank">Click Here</a>
+                  <td mat-cell *matCellDef="let element" class="text-center">
+                    <a *ngIf="element['documentType'] != 'Hyperlink'" (click)="downloadFile(element)" href="#" (download)="element['documentName']">Click Here</a>
+                    <a *ngIf="element['documentType'] == 'Hyperlink'" href="{{element['documentName']}}" target="new">Click Here</a>
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="author">
                   <th mat-header-cell *matHeaderCellDef class="text-center">Author</th>
-                  <td mat-cell *matCellDef="let element">
+                  <td mat-cell *matCellDef="let element" class="text-center">
                     <div *ngIf="element['author']!=null; else elseBlock">{{element["author"]}}</div>
                     <ng-template #elseBlock>Not Available</ng-template>
                   </td>
@@ -60,7 +80,7 @@
 
                 <ng-container matColumnDef="citation">
                   <th mat-header-cell *matHeaderCellDef class="text-center">Citation</th>
-                  <td mat-cell *matCellDef="let element">
+                  <td mat-cell *matCellDef="let element" class="text-center">
                     <div *ngIf="element['citation']!=null; else elseBlock">{{element["citation"]}}</div>
                       <ng-template #elseBlock>Not Available</ng-template>
                   </td>
@@ -68,11 +88,14 @@
 
                 <ng-container matColumnDef="classification">
                   <th mat-header-cell *matHeaderCellDef class="text-center">Classification</th>
-                  <td mat-cell *matCellDef="let element">{{element["classification"]}}</td>
+                  <td mat-cell *matCellDef="let element" class="text-center">{{element["classification"]}}</td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
                 <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
               </table>
+            </div>
+            <div *ngIf="selectedCategory != -1 && filteredCatalogList.length == 0">
+              <h4>The category selected has no files/data available</h4>
             </div>
           </div>
         </div>

@@ -10,4 +10,6 @@ export class Catalog {
 	alternate_category!: string;
   documentType!: string;
   classification!: string;
+  savedfilename!: string;
+  file!: Blob;
 }
