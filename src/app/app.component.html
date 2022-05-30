@@ -6,15 +6,15 @@
     <header>
       <h1>Welcome to {{title}}</h1>
       <h4>Based on {{bookTitle}}</h4>
-      <div *ngIf="!uploadPageOpenBool">
-        <a id="uploadLink" routerLink="/upload" (click)="uploadPage()">Upload</a>
+      <div *ngIf="!loginPageOpenBool">
+        <a id="loginLink" routerLink="/login" (click)="loginAccess()">Admin Access</a>
       </div>
-      <div *ngIf="uploadPageOpenBool">
-        <a id="uploadLink" routerLink="/" (click)="uploadPage()">Go Back</a>
+      <div *ngIf="loginPageOpenBool">
+        <a id="loginLink" routerLink="/" (click)="loginAccess()">Home Page</a>
       </div>
     </header>
     <router-outlet></router-outlet>
-    <div class="mainBody" *ngIf="!uploadPageOpenBool">
+    <div class="mainBody" *ngIf="!loginPageOpenBool">
       <div class="row">
         <div class="col">
           <div class="categoryListDisplay">
@@ -26,7 +26,7 @@
             <br>
             <ul>
               <div *ngFor="let category of filteredCategoryList">
-                <button type="button" class="categoryButtons" (click)="loadCatalogForCategory(category['id'])"><li>{{category["name"]}}</li></button>
+                <button type="button" class="categoryButtons" (click)="loadCatalogForCategory(category['id'], category['name'])"><li>{{category["name"]}}</li></button>
                 <br>
               </div>
             </ul>
@@ -35,7 +35,7 @@
         <div class="col">
           <div class="catalogListDisplay">
             <br/>
-            <h3>The following are the references for the selected Category </h3>
+            <h3>The following are the references for {{selectedCategoryName}} </h3>
             <br/>
             <button (click)="showFilter=!showFilter">Filter by Classification</button>
             <br/>
@@ -46,12 +46,26 @@
                 (click)="filterClassification(classification)">
                 <label class="form-check-label" for="{{classification['name']}}">{{classification['name']}}</label>
               </div>
+              <br>
+              <br>
+            </div>
+            <button (click)="showAdditionalFilter=!showAdditionalFilter">Filter by Additional Categories</button>
+            <br/>
+            <br/>
+             <div *ngIf="showAdditionalFilter">
+              <!-- <button (click)="AdditionalFilter()">Clear Alternate Categories Filter</button>
+              <br><br> -->
+              <input type="text" [formControl]="searchAdditionalControl" placeholder="Type here to search" name="searchAdditionalQueryInput">
+              <div *ngFor="let category of filteredAdditionalCategoriesList">
+                <input class="form-check-input" type="checkbox" value="classification" id="{{category['name']}}"
+                (click)="filterAdditionalCategory(category['name'])">
+                <label class="form-check-label" for="{{category['name']}}">{{category['name']}}</label>
+              </div>
             </div>
             <br/>
             <br/>
             <div *ngIf="selectedCategory != -1 && filteredCatalogList.length != 0">
               <table mat-table [dataSource]="filteredCatalogList" class="mat-elevation-z8">
-
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef class="text-center">Name</th>
                   <td mat-cell *matCellDef="let element" class="text-center">{{element["name"]}}</td>
@@ -90,6 +104,13 @@
                   <th mat-header-cell *matHeaderCellDef class="text-center">Classification</th>
                   <td mat-cell *matCellDef="let element" class="text-center">{{element["classification"]}}</td>
                 </ng-container>
+
+                <ng-container matColumnDef="AdditionalCategories">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Additional Categories</th>
+                  <td mat-cell *matCellDef="let element" class="text-center">{{element["alternateCategory"]}}</td>
+                </ng-container>
+
+
                 <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
                 <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
               </table>
@@ -103,7 +124,7 @@
     </div>
 
     <footer>
-      <h6>Intellectual Property of Lance S Davidson. Created by Vijayadithya Doddi</h6>
+      <h6>&copy; 1993-2022 Lance S. Davidson - All rights reserved. Created by <a target="new" href={{myLinkedIn}}>Vijayadithya Doddi</a></h6>
     </footer>
   </body>
 </html>

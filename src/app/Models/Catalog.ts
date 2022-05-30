@@ -7,7 +7,7 @@ export class Catalog {
 	author!: string;
 	citation!: string;
 	classificationId!: number;
-	alternate_category!: string;
+	alternateCategory!: string;
   documentType!: string;
   classification!: string;
   savedfilename!: string;

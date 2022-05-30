@@ -38,8 +38,8 @@ footer {
 .categoryListDisplay, .catalogListDisplay{
   height: 100%;
   width: 100%;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 .categoryButtons{
   background-color: white;
@@ -52,6 +52,8 @@ ul{
 table, th, td {
   border: 1px solid black;
   color: black;
+  table-layout: fixed;
+  width: 100%;
 }
 h3 {
   color: black;
@@ -69,7 +71,7 @@ a {
   padding: 0 3.5rem 0 1.5rem;
   font-size: 1rem;
 }
-#uploadLink{
+#loginLink{
   position: absolute;
   top: 0.25in;
   left: 90%

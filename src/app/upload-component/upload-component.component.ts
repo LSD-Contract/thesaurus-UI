@@ -2,6 +2,7 @@ import { Catalog } from './../Models/Catalog';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload-component',
@@ -18,8 +19,9 @@ export class UploadComponentComponent implements OnInit {
   uploadedFile!: File;
   documentTypeSelectedName:string = "";
   catalogCreated:boolean = false;
+  alternatesString:string = "Select the Alternate Category";
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private router: Router) {
     this.documentTypeSelectedName = "";
     this.createFormGroup();
     this.loadDocumentType();
@@ -29,6 +31,21 @@ export class UploadComponentComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  returnToAdminPage() {
+    this.router.navigate(['/admin']);
+  }
+
+  addAlternate(nameSelectedEvent: any) {
+    if(!this.alternatesString.includes(nameSelectedEvent.target.value) && nameSelectedEvent.target.value != this.formGroup.get("category")?.value) {
+      if(this.alternatesString == "Select the Alternate Category")
+      this.alternatesString = nameSelectedEvent.target.value;
+      else {
+        this.alternatesString = this.alternatesString + "," + nameSelectedEvent.target.value;
+      }
+    }
+    this.formGroup.get("alternatecategory")?.setValue(this.alternatesString);
   }
 
   createFormGroup() {
@@ -47,10 +64,14 @@ export class UploadComponentComponent implements OnInit {
 
   documentTypeSelected(docType:string) {
     this.documentTypeSelectedName = docType;
-    if(docType != "Hyperlink")
+    if(docType != "Hyperlink") {
       this.formGroup.get('file')?.setValidators(Validators.required);
-    else
+      this.formGroup.get('hyperlink')?.removeValidators;
+    }
+    else {
       this.formGroup.get('hyperlink')?.setValidators(Validators.required);
+      this.formGroup.get('file')?.removeValidators;
+    }
   }
 
   onClickSubmit(result: any) {
@@ -75,6 +96,9 @@ export class UploadComponentComponent implements OnInit {
     });
     if(this.documentTypeSelectedName == "Hyperlink")
       this.catalog.documentName = result.hyperlink;
+    if(this.alternatesString != "Select the Alternate Category" && this.alternatesString != null) {
+      this.catalog.alternateCategory = this.alternatesString;
+    }
     this.createCatalog();
   }
 

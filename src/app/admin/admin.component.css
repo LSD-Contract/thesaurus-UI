@@ -7,6 +7,7 @@
   padding: 0;
   height: 6.5in;
   padding: 0.1in;
+  align-items: center;
 }
 header {
   background-color: rgb(252, 231, 113);
@@ -32,43 +33,17 @@ footer {
   padding: 0%;
   margin: 0;
 }
-h3 {
-  color: black;
-}
-a {
-  color: blue;
-}
-#uploadLink{
-  position: absolute;
-  top: 0.25in;
-  left: 90%
-}
-#notification {
-  color: green;
-}
 input{
-  width: 3in;
-}
-select {
-  width: 3in;
-}
-.formTable{
-}
-table {
-  width: 100%;
-  border: 1px solid black;
-  color: black;
+  width: 2.5in;
 }
 td {
-  height: 40px;
+  padding: 0.1in;
+  border: 1px black;
 }
-.labelClass {
-  text-align : right;
-  width: 50%;
-}
-.formClass {
-  text-align : left;
-}
-#alternates {
-  visibility: hidden;
+table {
+  border-spacing: 50px;
+  border: 1px black;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1in;
 }
