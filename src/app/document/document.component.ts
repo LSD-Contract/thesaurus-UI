@@ -39,13 +39,13 @@ export class DocumentComponent implements OnInit {
       this.documentType.name = result.documentName;
       this.http.post("http://localhost:9561/thesaurus/crud/create?entityName=DocumentType", this.documentType).subscribe((response:any)=>{
         if(response != null && response["status"] == "OK") {
-          this.notification = "New Document Extension has been created";
+          this.notification = "New File Type Extension has been created";
           this.emptyFormCreate();
         } else {
           console.log(response);
 
           if(response.message == "Server failed with error : DocumentType already exists") {
-            this.notification = "Document Extension already exists";
+            this.notification = "File Type Extension already exists";
           }
         }
       })

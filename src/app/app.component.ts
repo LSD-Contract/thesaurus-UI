@@ -130,7 +130,7 @@ export class AppComponent {
             })
           }
         })
-
+        this.modifyCatalogList();
       }
     })
   }

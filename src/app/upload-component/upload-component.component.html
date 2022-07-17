@@ -1,28 +1,28 @@
 <div class="mainBody">
-  <h1>Enter the details for the new Catalog</h1>
+  <h1>Enter the details for the new Reference</h1>
   <br>
-  <h6 id="notification" *ngIf="catalogCreated" >Catalog has been uploaded successfully</h6>
+  <h6 id="notification" *ngIf="catalogCreated" >Reference has been uploaded successfully</h6>
   <div class="formTable">
     <form [formGroup]="formGroup" (ngSubmit)="onClickSubmit(formGroup.value)">
       <table>
         <tr>
-          <td class="labelClass"><label for="name">Enter the Name of the Catalog  :  </label></td>
+          <td class="labelClass"><label for="name">Enter the Name of the Reference  :  </label></td>
           <td class="formClass">&nbsp;&nbsp;<input type="text" name="name" placeholder="Name" id="name" formControlName = "name" required="true"></td>
           <td class="formClass"><p>*required</p></td>
         </tr>
         <tr>
-          <td class="labelClass"><label for="author">Enter the Author of the Catalog  :  </label></td>
+          <td class="labelClass"><label for="author">Enter the Author of the Reference  :  </label></td>
           <td class="formClass">&nbsp;&nbsp;<input type="text" name="author" placeholder="Author" id="author" formControlName = "author"></td>
         </tr>
         <tr>
-          <td class="labelClass"><label for="citation">Enter the Citation of the Catalog  :  </label></td>
+          <td class="labelClass"><label for="citation">Enter the Citation of the Reference  :  </label></td>
           <td class="formClass">&nbsp;&nbsp;<input type="text" name="citation" placeholder="Citation" id="citation" formControlName = "citation"></td>
         </tr>
         <tr>
-          <td class="labelClass"><label for="documentType">Select the Document Extension of the Catalog  :  </label></td>
+          <td class="labelClass"><label for="documentType">Select the File Type Extension of the Reference  :  </label></td>
           <td class="formClass">&nbsp;
             <select formControlName="documentType" name="documentType" id="documentType" required="true" (ngModelChange)="documentTypeSelected($event)">
-              <option value="" disabled selected>Select the Document Extension</option>
+              <option value="" disabled selected>Select the File Type Extension</option>
               <option value="{{docType['name']}}" *ngFor="let docType of documentTypeList">
                   {{docType['name']}}
               </option>
@@ -31,10 +31,10 @@
           <td class="formClass"><p>*required</p></td>
         </tr>
         <tr>
-          <td class="labelClass"><label for="classification">Select the Classification of the Catalog  :  </label></td>
+          <td class="labelClass"><label for="classification">Select the Content Type of the Reference  :  </label></td>
           <td class="formClass">&nbsp;
             <select formControlName="classification" name="classification" id="classification" required="true">
-              <option value="" disabled selected>Select the Classification</option>
+              <option value="" disabled selected>Select the Content Type</option>
               <option *ngFor="let classification of classificationList">
                   {{classification['name']}}
               </option>
@@ -43,7 +43,7 @@
           <td class="formClass"><p>*required</p></td>
         </tr>
         <tr>
-          <td class="labelClass"><label for="category">Select the Category of the Catalog  :  </label></td>
+          <td class="labelClass"><label for="category">Select the Category of the Reference  :  </label></td>
           <td class="formClass">&nbsp;
             <select formControlName="category" name="category" id="category" required="true">
               <option value="" disabled selected>Select the Category</option>
@@ -55,7 +55,7 @@
           <td class="formClass"><p>*required</p></td>
         </tr>
         <tr>
-          <td class="labelClass"><label for="alternatecategory">Select Alternate Categories of the Catalog  :  </label></td>
+          <td class="labelClass"><label for="alternatecategory">Select Alternate Categories of the Reference  :  </label></td>
           <td class="formClass">&nbsp;
             <select class="alternates" formControlName="alternatecategory" name="alternatecategory" id="alternatecategory"  (change)="addAlternate($event)">
               <option value="{{alternatesString}}" selected>{{alternatesString}}</option>
@@ -66,9 +66,9 @@
           </td>
         </tr>
         <tr>
-          <td class="labelClass" *ngIf="documentTypeSelectedName != 'Hyperlink'"><label for="file" >Select File to Upload for the Catalog  :  </label></td>
+          <td class="labelClass" *ngIf="documentTypeSelectedName != 'Hyperlink'"><label for="file" >Select File to Upload for the Reference  :  </label></td>
           <td class="formClass" *ngIf="documentTypeSelectedName != 'Hyperlink'">&nbsp;&nbsp;<input type="file" name="file" placeholder="file" id="file" formControlName = "file" (change)="selectFile($event)"></td>
-          <td class="labelClass" *ngIf="documentTypeSelectedName == 'Hyperlink'"><label for="url" >Enter Hyperlink for the Catalog  :  </label></td>
+          <td class="labelClass" *ngIf="documentTypeSelectedName == 'Hyperlink'"><label for="url" >Enter Hyperlink for the Reference  :  </label></td>
           <td class="formClass" *ngIf="documentTypeSelectedName == 'Hyperlink'">&nbsp;<input type="url" name="hyperlink" placeholder="Hyperlink" id = "Hyperlink" formControlName = "hyperlink"></td>
           <td class="formClass"><p>*required</p></td>
         </tr>

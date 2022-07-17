@@ -39,11 +39,11 @@ export class ClassificationComponent implements OnInit {
       this.classification.name = result.classificationName;
       this.http.post("http://localhost:9561/thesaurus/crud/create?entityName=Classification", this.classification).subscribe((response:any)=>{
         if(response != null && response["status"] == "OK") {
-          this.notification = "New Classification has been created";
+          this.notification = "New Media Type has been created";
           this.emptyFormCreate();
         } else {
           if(response.message == "Server failed with error : Classification already exists") {
-            this.notification = "Classification already exists";
+            this.notification = "Media Type already exists";
           }
         }
       })

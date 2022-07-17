@@ -19,7 +19,7 @@ export class UploadComponentComponent implements OnInit {
   uploadedFile!: File;
   documentTypeSelectedName:string = "";
   catalogCreated:boolean = false;
-  alternatesString:string = "Select the Alternate Category";
+  alternatesString:string = "Select the Alternate Categories";
 
   constructor(private http:HttpClient, private router: Router) {
     this.documentTypeSelectedName = "";

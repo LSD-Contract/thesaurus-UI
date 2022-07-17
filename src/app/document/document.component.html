@@ -1,13 +1,13 @@
 <div class="mainBody">
   <br>
-  <h1>Enter the new Document Extension</h1>
+  <h1>Enter the new File Type Extension</h1>
   <form [formGroup]="documentFormGroup" (ngSubmit)="onSubmit(documentFormGroup.value)">
-    <h6 id="notificationG" *ngIf="notification == 'New Document Extension has been created'" >{{notification}}</h6>
-    <h6 id="notificationR" *ngIf="notification != 'New Document Extension has been created' && notification != 'Document Extension already exists' &&
-    notification != ''" >Error Creating Document Extension</h6>
+    <h6 id="notificationG" *ngIf="notification == 'New File Type Extension has been created'" >{{notification}}</h6>
+    <h6 id="notificationR" *ngIf="notification != 'New File Type Extension has been created' && notification != 'File Type Extension already exists' &&
+    notification != ''" >Error Creating File Type Extension</h6>
     <h6 id="notificationR" *ngIf="notification == 'Document Extension already exists'" >{{notification}}</h6>
     <table>
-      <tr><td><label for="documentName">Enter the Document Extension</label></td></tr>
+      <tr><td><label for="documentName">Enter the File Type Extension</label></td></tr>
       <tr>
         <td><input type="text" name="documentName" placeholder="Document Name" id="documentName" formControlName = "documentName" required="true"></td>
       </tr>

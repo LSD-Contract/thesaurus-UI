@@ -16,7 +16,7 @@
     <router-outlet></router-outlet>
     <div class="mainBody" *ngIf="!loginPageOpenBool">
       <div class="row">
-        <div class="col">
+        <div class="col-4">
           <div class="categoryListDisplay">
             <br/>
             <h3>The following are the current Categories, Please select one to view the files </h3>
@@ -32,12 +32,12 @@
             </ul>
           </div>
         </div>
-        <div class="col">
+        <div class="col-8">
           <div class="catalogListDisplay">
             <br/>
             <h3>The following are the references for {{selectedCategoryName}} </h3>
             <br/>
-            <button (click)="showFilter=!showFilter">Filter by Classification</button>
+            <button (click)="showFilter=!showFilter">Filter by Content Type</button>
             <br/>
             <br/>
             <div *ngIf="showFilter">
@@ -72,7 +72,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="type">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
+                  <th mat-header-cell *matHeaderCellDef class="text-center">File Type</th>
                   <td mat-cell *matCellDef="let element" class="text-center">{{element["documentType"]}}</td>
                 </ng-container>
 
@@ -101,7 +101,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="classification">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Classification</th>
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Content Type</th>
                   <td mat-cell *matCellDef="let element" class="text-center">{{element["classification"]}}</td>
                 </ng-container>
 
