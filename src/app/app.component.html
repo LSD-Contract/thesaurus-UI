@@ -65,54 +65,34 @@
             <br/>
             <br/>
             <div *ngIf="selectedCategory != -1 && filteredCatalogList.length != 0">
-              <table mat-table [dataSource]="filteredCatalogList" class="mat-elevation-z8">
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Name</th>
-                  <td mat-cell *matCellDef="let element" class="text-center">{{element["name"]}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="type">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">File Type</th>
-                  <td mat-cell *matCellDef="let element" class="text-center">{{element["documentType"]}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="link">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Link</th>
-                  <td mat-cell *matCellDef="let element" class="text-center">
-                    <a *ngIf="element['documentType'] != 'Hyperlink'" (click)="downloadFile(element)" href="#" (download)="element['documentName']">Click Here</a>
-                    <a *ngIf="element['documentType'] == 'Hyperlink'" href="{{element['documentName']}}" target="new">Click Here</a>
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="author">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Author</th>
-                  <td mat-cell *matCellDef="let element" class="text-center">
-                    <div *ngIf="element['author']!=null; else elseBlock">{{element["author"]}}</div>
-                    <ng-template #elseBlock>Not Available</ng-template>
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="citation">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Citation</th>
-                  <td mat-cell *matCellDef="let element" class="text-center">
-                    <div *ngIf="element['citation']!=null; else elseBlock">{{element["citation"]}}</div>
-                      <ng-template #elseBlock>Not Available</ng-template>
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="classification">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Content Type</th>
-                  <td mat-cell *matCellDef="let element" class="text-center">{{element["classification"]}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="AdditionalCategories">
-                  <th mat-header-cell *matHeaderCellDef class="text-center">Additional Categories</th>
-                  <td mat-cell *matCellDef="let element" class="text-center">{{element["alternateCategory"]}}</td>
-                </ng-container>
-
-
-                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <th>File Type</th>
+                  <th>Link</th>
+                  <th>Author</th>
+                  <th>Citation</th>
+                  <th>Content Type</th>
+                  <th>Additional Categories</th>
+                </tr>
+              </table>
+              <table class="mat-elevation-z8" *ngFor="let filteredCatalog of filteredCatalogList">
+                <tr>
+                    <td>{{filteredCatalog.name}}</td>
+                    <td>{{filteredCatalog.documentType}}</td>
+                    <td>
+                      <a *ngIf="filteredCatalog.documentType != 'Hyperlink'" (click)="downloadFile(filteredCatalog)" href="#" (download)="filteredCatalog.documentName">Click Here</a>
+                      <a *ngIf="filteredCatalog.documentType == 'Hyperlink'" href="{{filteredCatalog.documentName}}" target="new">Click Here</a>
+                    </td>
+                    <td>{{filteredCatalog.author}}</td>
+                    <td>{{filteredCatalog.citation}}</td>
+                    <td>{{filteredCatalog.classification}}</td>
+                    <td>{{filteredCatalog.alternateCategory}}</td>
+                  </tr>
+                  <tr *ngIf="filteredCatalog.keyWords != null">
+                    <th>Sample</th>
+                    <td colspan="6">{{filteredCatalog.keyWords}}</td>
+                  </tr>
               </table>
             </div>
             <div *ngIf="selectedCategory != -1 && filteredCatalogList.length == 0">

@@ -12,4 +12,5 @@ export class Catalog {
   classification!: string;
   savedfilename!: string;
   file!: Blob;
+  keyWords!: string;
 }
